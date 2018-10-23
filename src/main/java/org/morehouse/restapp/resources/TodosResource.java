@@ -56,21 +56,21 @@ public class TodosResource {
 	public Todo retrieveTodo(@PathVariable long id) {
 		// Retrieve a row from the todo table in the H2 database
 		// using the id passed by client via URL
-		String url = "http://localhost:7070/morehouse/restapp/todos/1";
-		StringBuilder result = new StringBuilder();
-		
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		con.setRequestMethod("GET");
-		
-		 BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	      String line;
-	      while ((line = rd.readLine()) != null) {
-	         result.append(line);
-	      }
-	      rd.close();
-		
-		)
+//		String url = "http://localhost:7070/morehouse/restapp/todos/1";
+//		StringBuilder result = new StringBuilder();
+//		
+//		URL obj = new URL(url);
+//		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//		con.setRequestMethod("GET");
+//		
+//		 BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//	      String line;
+//	      while ((line = rd.readLine()) != null) {
+//	         result.append(line);
+//	      }
+//	      rd.close();
+//		
+//		)
 		
 		Optional<Todo> todo = todoRepository.findById(id);
 		return todo.get();
@@ -89,11 +89,11 @@ public class TodosResource {
 	@RequestMapping(method = RequestMethod.POST, produces = { "application/json", "application/xml"  })
 	public Todo createTodo(@RequestBody Todo todo) {
 		
-		String url = "http://localhost:7070/morehouse/restapp/todos";
-		URL obj = new URL(url);
-		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-		con.setRequestMethod("POST");
+//		String url = "http://localhost:7070/morehouse/restapp/todos";
+//		URL obj = new URL(url);
+//		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+//
+//		con.setRequestMethod("POST");
 		
 		Todo savedTodo = todoRepository.save(todo);
 		return savedTodo;
@@ -105,6 +105,7 @@ public class TodosResource {
 	// To test: http://localhost:7070/morehouse/restapp/todos/<id>
 	//    Note: Make sure the id you pass exists in the Todo table
 	// HTTP method: DELETE
+	@RequestMapping(method = RequestMethod.DELETE, produces = { "application/json", "application/xml"  })
 	public String deleteTodo(@PathVariable long id) {
 		todoRepository.deleteById(id);
 		return "row " + id + " deleted";
@@ -120,6 +121,7 @@ public class TodosResource {
 	// Body:  {"id":6,"title":"To Kill a Mockingbird","status":"OUT","dueDate":"2018-10-22","comment":"on-line checkout","assignee":"Robin Hood"}
 	//        This assumes there is a row in the Todos database table
 	//        with id = 6
+	@RequestMapping(method = RequestMethod.PUT, produces = { "application/json", "application/xml"  })
 	public ResponseEntity<Object> updateTodo(@RequestBody Todo todo, @PathVariable long id) {
 
 		Optional<Todo> todoOptional = todoRepository.findById(id);
