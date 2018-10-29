@@ -86,7 +86,7 @@ public class TodosResource {
 	//         Note that id will be auto-generated 
 	//            in the Todos database table
 	// Accept: application/json
-	@RequestMapping(method = RequestMethod.POST, produces = { "application/json", "application/xml"  })
+	@RequestMapping(method = RequestMethod.POST, consumes =  "application/json")
 	public Todo createTodo(@RequestBody Todo todo) {
 		
 //		String url = "http://localhost:7070/morehouse/restapp/todos";
@@ -105,7 +105,7 @@ public class TodosResource {
 	// To test: http://localhost:7070/morehouse/restapp/todos/<id>
 	//    Note: Make sure the id you pass exists in the Todo table
 	// HTTP method: DELETE
-	@RequestMapping(method = RequestMethod.DELETE, produces = { "application/json", "application/xml"  })
+	@RequestMapping(method = RequestMethod.DELETE)
 	public String deleteTodo(@PathVariable long id) {
 		todoRepository.deleteById(id);
 		return "row " + id + " deleted";
