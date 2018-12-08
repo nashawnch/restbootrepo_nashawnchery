@@ -128,6 +128,10 @@ public class TodosResource {
 
 		if (!todoOptional.isPresent())
 			return ResponseEntity.notFound().build();
+		
+		if(!validateUpdate(todoOptional.get(), todo)) {
+			return ResponseEntity.noContent().build();
+		}
 
 		todo.setId(id);
 		
@@ -135,4 +139,12 @@ public class TodosResource {
 
 		return ResponseEntity.noContent().build();
 	}
+	
+	boolean validateUpdate(Todo existing, Todo update) {
+		if (existing.getAssignee() == null && update.getAssignee() == null) {
+			return true;
+	} else 
+		return update.getAssignee() != null;
+	}
+	
 }
